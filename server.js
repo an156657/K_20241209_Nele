@@ -38,11 +38,46 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // Hier kommt das Kunden(-berater) objekt hin:
 
+class Kunde {constructor(){ this.Name
+							this.Vorname
+							this.Benutzername
+							this.Kennwort
+							this.KundenId		}}
+
+
+let kunde1 = new Kunde()
+kunde1.Name="Müller"
+kunde1.Vorname="Franz"
+kunde1.Benutzername="franz.müller123"
+kunde1.Kennwort="123456789"
+kunde1.KundenId=3
+
+
+class Kundenberater {constructor(){ this.Name
+									this.Vorname		}}							
+
+
+let kundenberater1=new Kundenberater()
+kundenberater1.Name="Kiff"
+kundenberater1.Vorname="Pit"			
+
+let kundenberater2 = new Kundenberater()
+kundenberater2.Name="Schmidt"
+kundenberater2.Vorname="Otto"
+
+
+let kundenId = 3
+
+if(kundenId>10){kundenberater2.Name} else{if kundenId<=10}{kundenberater1.Name} else{if (kundenId<=0){"kein Kundenberater"}}
 
 
 
+// 4. Geben Sie die Werte Ihres Kundenberaterobjekts auf der Seite aus, indem Sie entsprechende Anpassungen in der app.get und der ejs-Datei vornehmen. Wenn sich das Objekt ändert, muss sich natürlich die Ausgabe auf Ihrer Seite ändern. 
+// 5. Erweitern Sie das Projekt um einen zweiten Kundenberater. Wenn der Kunde eine ID zwischen 1 und 10 hat, soll ihm der erste Kundenberater angezeigt werden. Kunden mit höherer ID bekommen den zweiten Kundenberater zugeordnet. 
 
 
+// 3. Erstellen Sie die Loginformular, indem Benutername und Kennwort abgefragt werden.
+// 4. Wenn Kennwort und Benutzername korrekt sind, dann soll auf der Login-Seite angezeigt werden "Sie wurden eingeloggt", ansonsten soll auf der Seite stehen: "Versuchen Sie es erneut"
 
 
 app.get('/', (req, res) => {
@@ -68,12 +103,24 @@ app.get('/postfach', (req, res) => {
 });
 
 app.get('/kreditBeantragen', (req, res) => {
-	res.render('kreditBeantragen.ejs',{});
+	res.render('kreditBeantragen.ejs',{
+		Meldung:""
+	});
 });
+
+
 
 app.get('/ueberweisungAusfuehren', (req, res) => {
 	res.render('ueberweisungAusfuehren.ejs',{});
 });
+
+
+app.get('/profil', (req, res) => {
+	res.render('profil.ejs',{});
+});
+
+
+
 
 // Die Funktion app.get('/geldAnlegen...) wird abgearbeitet, wenn der Benutzer die Seite geldAnlegen
 // im Browser ansurft.
@@ -136,3 +183,27 @@ app.listen(PORT, HOST);
 // Ausdruck übergeben. Ein Verb mit anschließenden runden Klammern steht
 // immer für eine Anweisung etwas zu tun. 
 console.log(`Running on http://${HOST}:${PORT}`);
+
+
+
+
+app.post('/kreditBeantragen', (req, res) => {
+
+	let betrag = req.body.Betrag;
+	console.log("kreditBeantragen: Gewünschter Kreditbetrag: " + betrag + " Euro")
+
+	let zinssatz = req.body.Zinssatz;
+	console.log("kreditBeantragen: Gewünschter Zinssatz: " + zinssatz)
+
+	let laufzeit = req.body.Laufzeit;
+	console.log("kreditBeantragen: Gewünschte Laufzeit: " + laufzeit + " Jahre")
+
+	
+	let rückzahlungsbetrag = betrag * Math.pow((1+zinssatz),laufzeit)
+
+	res.render('kreditBeantragen.ejs',{
+		Betrag: betrag,
+		Laufzeit: laufzeit,
+		Meldung: "Ihr Rückzahlungsbetrag beträgt: " + rückzahlungsbetrag
+	});
+});

@@ -22,6 +22,25 @@
     </header>
     <main>
         <H1>Kredit beantragen</H1>
+
+        <form method="post">
+            <label for="tentacles">Gewünschter Kreditbetrag:</label><br>
+            <input type="number" id="tentacles" name="tentacles" min="0" max="10000000000000" /><br>
+
+            <label for="tentacles">Gewünschter Zinssatz:</label><br>
+            <input type="number" id="tentacles" name="tentacles" min="0" max="10000000000000" /><br>
+
+            <label for="tentacles">Gewünschte Laufzeit:</label><br>
+            <input type="number" id="tentacles" name="tentacles" min="0" max="10000000000000" /><br><br>
+
+            <button type="submit" formaction="/kreditBeantragen">Kredit berechnen</button>
+            
+        </form>
+        <p><%= Meldung %></p>
+        
+
+
+
     </main>
 
     <footer>
@@ -31,3 +50,12 @@
     </footer>
 </body>
 </html>
+
+
+
+
+ 
+
+2. Wenn der Kunde den "Kredit berechnen"-Button klickt, dann wird der Rückzahlungsbetrag am Ende der gewünschten Laufzeit berechnet. 
+3. Der Rückzahlungsbetrag wird auf dem Formular ausgegeben.
+4. Loggen Sie Ihre Berechungen auch auf der Console.
